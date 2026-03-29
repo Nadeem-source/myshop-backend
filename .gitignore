@@ -1,3 +1,18 @@
+bin/
+obj/
+node_modules/
+
+*.log
+*.exe
+*.dll
+
+.env
+.env.*
+
+wwwroot/uploads/
+
+.vs/
+
 # Logs
 logs
 *.log
