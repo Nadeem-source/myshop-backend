@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;    // ✅ ADDED
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Facebook;
+using DotNetEnv;
+
+Env.load();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +30,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     );
 });
 
+var googleClientId = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID");
+var googleClientSecret = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET");
+var sendGridKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
 /* ======================= AUTH ======================= */
 builder.Services.AddAuthentication(options =>
 {
@@ -35,13 +41,13 @@ builder.Services.AddAuthentication(options =>
 .AddCookie()
 .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
 {
-    options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+    options.ClientId = googleClientId;
+    options.ClientSecret =  googleClientSecret;
     options.CallbackPath = "/auth/google/callback";
 });
 
 // Email Service
-builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<EmailService>(provider => new EmailService(sendGridKey));
 
 /* ======================= CORS ======================= */
 builder.Services.AddCors(options =>
