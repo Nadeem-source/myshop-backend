@@ -1,0 +1,26 @@
+# Logs
+logs
+*.log
+
+# Dependency
+node_modules
+
+# Environment files (VERY IMPORTANT)
+.env
+.env.*
+
+# Build
+dist
+build
+
+# OS files
+.DS_Store
+
+# VS Code
+.vscode
+
+# Visual Studio
+.vs
+
+# Executables
+*.exe
