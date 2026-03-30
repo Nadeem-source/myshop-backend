@@ -3,11 +3,11 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # Copy csproj and restore
-COPY ["RegisterApi/RegisterApi.csproj", "./"]
+COPY ["RegisterApi.csproj", "./"]
 RUN dotnet restore "./RegisterApi.csproj"
 
-# Copy everything else 
-COPY . . 
+# Copy everything else from repo root
+COPY . ./
 
 # Publish
 RUN dotnet publish "RegisterApi.csproj" -c Release -o /app/out
