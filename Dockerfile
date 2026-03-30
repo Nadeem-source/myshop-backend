@@ -6,8 +6,8 @@ WORKDIR /app
 COPY ["RegisterApi/RegisterApi.csproj", "./"]
 RUN dotnet restore "./RegisterApi.csproj"
 
-# Copy everything else from RegisterApi folder
-COPY RegisterApi/ ./ 
+# Copy everything else 
+COPY . . 
 
 # Publish
 RUN dotnet publish "RegisterApi.csproj" -c Release -o /app/out
